@@ -1,0 +1,122 @@
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Poetry files
+poetry.lock
+.pypoetry/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+### Database ###
+# SQLite databases
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# Alembic migrations (except the actual migrations folder)
+/alembic.ini
+!/alembic/
+/alembic/*.py
+!/alembic/versions/
+
+### Docker ###
+# Docker-specific files
+docker-compose.override.yml
+docker-compose.*.yml
+
+# Local Docker development files
+*.dockerfile
+docker-compose.yml.dev
+
+# Docker build artifacts
+.dockerignore
+docker-compose-build.yml
+
+# Temporary container files
+*.container
+
+### IDE ###
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# macOS
+.DS_Store
+
+### Environment ###
+# Environment variables
+.env
+.env.*
+!.env.example
+
+### Logs ###
+# Log files
+*.log
+logs/
+
+### Development ###
+# Development files
+*.env
+*.bak
+*.tmp
+*.temp
+
+# FastAPI specific
+.settings/
+.ropeproject/
+
+### Build ###
+# Build files
+build/
+dist/
+*.egg-info/
+*.egg
+
+### Data ###
+# Pandas
+*.pkl
+*.pickle
+*.parquet
+*.feather
+*.hdf5
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+### Visual Studio Code ###
+.history/
