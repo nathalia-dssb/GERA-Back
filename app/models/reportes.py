@@ -1,10 +1,16 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from app.db.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text
+from sqlalchemy.orm import relationship
+from app.db.base import Base
+
 
 class Reporte(Base):
     __tablename__ = "reportes"
 
-    id_reporte = Column(DateTime, primary_key=True, nullable=False)
+    reporte_id = Column(DateTime, primary_key=True, nullable=False, index=True)
     estado = Column(String(20))
-    observaciones = Column(String)
-    id_activo = Column(Integer, ForeignKey("activos.id_activo"), nullable=False)
+    observaciones = Column(Text)
+    equipo_id = Column(Integer, ForeignKey(
+        "activos.equipo_id"), nullable=False)
+
+    # relaciones
+    activo = relationship("Activo", back_populates="reportes")
