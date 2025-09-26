@@ -1,16 +1,21 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
-from app.db.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+from app.db.base import Base
+
 
 class Activo(Base):
     __tablename__ = "activos"
 
-    id_activo = Column(Integer, primary_key=True, nullable=False)
-    folio_resguardo = Column(Integer, nullable=False)
-    clave_activo = Column(Integer)
-    num_serie = Column(Integer)
-    clave_resguardante = Column(Integer, ForeignKey("resguardantes.clave"), nullable=False)
+    equipo_id = Column(Integer, primary_key=True, index=True, nullable=False)
+    reguardo_id = Column(Integer, nullable=False)
+    no_serie = Column(Integer)
+    trabajador_id = Column(Integer, ForeignKey(
+        "resguardantes.trabajador_id"), nullable=False)
+    descripcion_articulo = Column(String(100))
     caracteristicas = Column(String(100))
-    factura = Column(String(100))
-    ubicacion = Column(String(100))
-    condiciones = Column(String(100))
-    estatus = Column(Boolean)
+    salon_id = Column(String(20), ForeignKey("ubicaciones.salon_id"))
+
+    # relaciones
+    resguardante = relationship("Resguardante", back_populates="activos")
+    ubicacion = relationship("Ubicacion", back_populates="activos")
+    reportes = relationship("Reporte", back_populates="activo")
