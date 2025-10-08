@@ -40,3 +40,4 @@ def obtener_datos_por_nombre(nombre: str):
         return coincidencias.to_dict(orient="records")
     else:
         return {"Error": f"No se encontraron registros con el nombre '{nombre}'"}
+#HOLA
