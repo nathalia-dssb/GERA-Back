@@ -4,6 +4,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#Ignores loaded data
+data/*.xlsx
+data/*.xls
+
 # Distribution / packaging
 .Python
 env/
