@@ -3,31 +3,25 @@ from pathlib import Path
 
 from app.models.resguardantes import Resguardante
 from app.db.database import SessionLocal
-from app.db.database import init_db
 
 
 def load_resguardantes():
     BASE_DIR = Path(__file__).parent / "../../data/"
 
     # cargar el exel de reguardantes
-    file_path = BASE_DIR / "CONCENTRADO_RESGUARDANTES_CON_CLAVE.xlsx"
+    file_path = BASE_DIR / "INVENTARIO_SEPTIEMBRE_2025.xlsx"
     resguardantes_df = pd.read_excel(
-        file_path, header=None, usecols=[1, 2], skiprows=2, names=['nombre_completo', 'trabajador_id'])
+        file_path, header=None, usecols='P,Q',
+        skiprows=5, names=['trabajador_id', 'nombre_completo'], dtype={'trabajador_id': str})
 
     # Limpieza de nulos
     resguardantes_df = resguardantes_df.dropna(
         how='all').dropna(axis=1, how='all')
 
-    # Conversor de clave de trabajador
-    resguardantes_df['trabajador_id'] = pd.to_numeric(
-        resguardantes_df['trabajador_id'],
-        errors='coerce'
-    )
-
     # Si no se pueden hacer conversiones de id el resguardante no se registrara en la BD por seguridad
     resguardantes_df = resguardantes_df.dropna(subset=['trabajador_id'])
     resguardantes_df['trabajador_id'] = resguardantes_df['trabajador_id'].astype(
-        int)
+        str)
     resguardantes_df = resguardantes_df.drop_duplicates(
         subset=['trabajador_id'],
         keep='first'
@@ -35,7 +29,7 @@ def load_resguardantes():
 
     # Limpieza en el nombre en caso de haber espacios
     resguardantes_df['nombre_completo'] = resguardantes_df['nombre_completo'].astype(
-        str).str.strip()
+        str).str.strip().str.replace('.', '', regex=False)
 
     return resguardantes_df
 

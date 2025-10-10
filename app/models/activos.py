@@ -9,7 +9,7 @@ class Activo(Base):
     equipo_id = Column(Integer, primary_key=True, index=True, nullable=False)
     reguardo_id = Column(Integer, nullable=False)
     no_serie = Column(Integer)
-    trabajador_id = Column(Integer, ForeignKey(
+    trabajador_id = Column(String(10), ForeignKey(
         "resguardantes.trabajador_id"), nullable=False)
     descripcion_articulo = Column(String(100))
     caracteristicas = Column(String(100))
