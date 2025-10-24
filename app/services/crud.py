@@ -6,6 +6,7 @@ from datetime import datetime
 # ===================================================================
 from app.models.resguardantes import Resguardante
 from app.models.reportes import Reporte
+from app.models import Ubicacion
 from app.schemas import schemas
 
 # ===================================================================
@@ -67,3 +68,25 @@ def delete_reporte(db: Session, reporte_id: datetime):
     db.delete(db_reporte)
     db.commit()
     return db_reporte
+
+# ===================================================================
+# Funciones CRUD para Ubicacion (Solo Lectura)
+# ===================================================================
+
+
+def get_ubicacion(db: Session, salon_id: str):
+    return db.query(Ubicacion).filter(Ubicacion.salon_id == salon_id).first()
+
+
+def get_ubicaciones(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(Ubicacion).offset(skip).limit(limit).all()
+
+
+def get_ubicaciones_by_edificio(db: Session, edificio: str, skip: int = 0, limit: int = 100):
+    return db.query(Ubicacion).filter(Ubicacion.edificio == edificio).offset(skip).limit(limit).all()
+
+
+def get_salon_ids_by_edificio(db: Session, edificio: str, skip: int = 0, limit: int = 100):
+    results = db.query(Ubicacion.salon_id).filter(Ubicacion.edificio == edificio).offset(skip).limit(limit).all()
+    # Extract the string values from the tuples returned by SQLAlchemy
+    return [result[0] for result in results]

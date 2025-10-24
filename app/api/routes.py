@@ -30,6 +30,31 @@ def read_resguardante_endpoint(trabajador_id: str, db: Session = Depends(get_db)
     return db_resguardante
 
 # --------------------------------------------------------
+# Rutas de ubicaciones
+# ------------------------------------------------------
+
+
+@router.get("/ubicaciones", response_model=List[schemas.UbicacionBase])
+def read_ubicaciones_endpoint(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    ubicaciones = crud.get_ubicaciones(db, skip=skip, limit=limit)
+    return ubicaciones
+
+
+@router.get("/ubicaciones/{salon_id}", response_model=schemas.UbicacionBase)
+def read_ubicacion_endpoint(salon_id: str, db: Session = Depends(get_db)):
+    db_ubicacion = crud.get_ubicacion(db, salon_id=salon_id)
+    if db_ubicacion is None:
+        raise HTTPException(
+            status_code=404, detail="Ubicación no encontrada")
+    return db_ubicacion
+
+
+@router.get("/ubicaciones/edificio/{edificio}", response_model=List[str])
+def read_salon_ids_by_edificio_endpoint(edificio: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    salon_ids = crud.get_salon_ids_by_edificio(db, edificio=edificio, skip=skip, limit=limit)
+    return salon_ids
+
+# --------------------------------------------------------
 # Rutas de reportes
 # ------------------------------------------------------
 
