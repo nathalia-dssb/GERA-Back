@@ -13,10 +13,12 @@ class UbicacionBase(BaseModel):
 
 
 class Ubicacion(UbicacionBase):
-    activos: List["Activo"] = []
-
     class Config:
         from_attributes = True
+
+
+class SalonIdResponse(BaseModel):
+    salon_id: str
 
 
 # ===================================================================
